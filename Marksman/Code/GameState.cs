@@ -8,7 +8,7 @@ namespace Marksman
 {
     public enum GameState
     {
-        Loading,
+        SplashScreen,
         Menu,
         Game
     }
