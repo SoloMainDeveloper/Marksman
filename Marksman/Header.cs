@@ -6,46 +6,57 @@ namespace Marksman
 {
     public class Header : Game
     {
-        private GraphicsDeviceManager _graphics;
-        private SpriteBatch _spriteBatch;
+        private GraphicsDeviceManager graphics;
+        private SpriteBatch spriteBatch;
+        private GameState state;
 
         public Header()
         {
-            _graphics = new GraphicsDeviceManager(this);
+            graphics = new GraphicsDeviceManager(this);
             Content.RootDirectory = "Content";
             IsMouseVisible = true;
         }
 
         protected override void Initialize()
         {
-            // TODO: Add your initialization logic here
-
+            graphics.PreferredBackBufferWidth = 1920;
+            graphics.PreferredBackBufferHeight = 1080;
+            graphics.ApplyChanges();
             base.Initialize();
         }
 
         protected override void LoadContent()
         {
-            _spriteBatch = new SpriteBatch(GraphicsDevice);
-
-            // TODO: use this.Content to load your game content here
+            SplashScreen.Background = Content.Load<Texture2D>("Background");
+            SplashScreen.Font = Content.Load<SpriteFont>("SplashFont");
+            spriteBatch = new(GraphicsDevice);
         }
 
         protected override void Update(GameTime gameTime)
         {
+            var keyBoardState = Keyboard.GetState();
+            switch (state)
+            {
+                case GameState.SplashScreen:
+                    SplashScreen.Update();
+                    break;
+            }
             if (GamePad.GetState(PlayerIndex.One).Buttons.Back == ButtonState.Pressed || Keyboard.GetState().IsKeyDown(Keys.Escape))
                 Exit();
-
-            // TODO: Add your update logic here
-
             base.Update(gameTime);
         }
 
         protected override void Draw(GameTime gameTime)
         {
             GraphicsDevice.Clear(Color.CornflowerBlue);
-
-            // TODO: Add your drawing code here
-
+            spriteBatch.Begin();
+            switch (state)
+            {
+                case GameState.SplashScreen:
+                    SplashScreen.Draw(spriteBatch);
+                    break;
+            }
+            spriteBatch.End();
             base.Draw(gameTime);
         }
     }
