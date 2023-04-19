@@ -8,7 +8,7 @@ namespace Marksman
     {
         private GraphicsDeviceManager graphics;
         private SpriteBatch spriteBatch;
-        private GameState state;
+        private GameState state = GameState.SplashScreen;
 
         public Header()
         {
