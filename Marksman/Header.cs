@@ -1,4 +1,5 @@
-﻿using Microsoft.Xna.Framework;
+﻿using System.Collections.Generic;
+using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Input;
 
@@ -10,15 +11,20 @@ namespace Marksman
         private SpriteBatch spriteBatch;
         private GameState state = GameState.SplashScreen;
 
+        private Color backgroundColor = Color.CornflowerBlue;
+        private List<Component> gameComponents;
+
         public Header()
         {
-            graphics = new GraphicsDeviceManager(this);
+            graphics = new(this);
             Content.RootDirectory = "Content";
             IsMouseVisible = true;
         }
 
         protected override void Initialize()
         {
+            IsMouseVisible = true;
+
             graphics.PreferredBackBufferWidth = 1920;
             graphics.PreferredBackBufferHeight = 1080;
             graphics.ApplyChanges();
@@ -29,6 +35,31 @@ namespace Marksman
         {
             SplashScreen.Background = Content.Load<Texture2D>("Background");
             SplashScreen.Font = Content.Load<SpriteFont>("SplashFont");
+
+            var playButton = new Button(Content.Load<Texture2D>("Controls/PlayButton"), SplashScreen.Font)
+            {
+                Position = new Vector2(750, 350)
+            };
+            playButton.Click += PlayButtonClick;
+
+            var quitButton = new Button(Content.Load<Texture2D>("Controls/ExitButton"), SplashScreen.Font)
+            {
+                Position = new Vector2(750, 650)
+            };
+            quitButton.Click += QuitButtonClick;
+
+            var shopButton = new Button(Content.Load<Texture2D>("Controls/ShopButton"), SplashScreen.Font)
+            {
+                Position = new Vector2(750, 500)
+            };
+            quitButton.Click += ShopButtonClick;
+
+            gameComponents = new List<Component>
+            {
+                playButton,
+                shopButton,
+                quitButton
+            };
             spriteBatch = new(GraphicsDevice);
         }
 
@@ -38,10 +69,16 @@ namespace Marksman
             switch (state)
             {
                 case GameState.SplashScreen:
+                    if (keyBoardState.IsKeyDown(Keys.Enter))
+                        state = GameState.Menu;
                     SplashScreen.Update();
                     break;
+                case GameState.Menu:
+                    foreach (var component in gameComponents)
+                        component.Update(gameTime);
+                    break;
             }
-            if (GamePad.GetState(PlayerIndex.One).Buttons.Back == ButtonState.Pressed || Keyboard.GetState().IsKeyDown(Keys.Escape))
+            if (GamePad.GetState(PlayerIndex.One).Buttons.Back == ButtonState.Pressed || keyBoardState.IsKeyDown(Keys.Escape))
                 Exit();
             base.Update(gameTime);
         }
@@ -55,9 +92,19 @@ namespace Marksman
                 case GameState.SplashScreen:
                     SplashScreen.Draw(spriteBatch);
                     break;
+                case GameState.Menu:
+                    foreach (var component in gameComponents)
+                        component.Draw(gameTime, spriteBatch);
+                    break;
             }
             spriteBatch.End();
             base.Draw(gameTime);
         }
+
+        private void PlayButtonClick(object sender, System.EventArgs e) => state = GameState.Game;
+
+        private void ShopButtonClick(object sender, System.EventArgs e) => state = GameState.Shop;
+
+        private void QuitButtonClick(object sender, System.EventArgs e) => Exit();
     }
 }
