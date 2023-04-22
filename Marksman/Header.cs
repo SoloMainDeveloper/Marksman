@@ -11,8 +11,6 @@ namespace Marksman
         private SpriteBatch spriteBatch;
         private GameState state = GameState.SplashScreen;
 
-        private Color backgroundColor = Color.CornflowerBlue;
-        private List<Component> gameComponents;
 
         public Header()
         {
@@ -52,9 +50,9 @@ namespace Marksman
             {
                 Position = new Vector2(750, 500)
             };
-            quitButton.Click += ShopButtonClick;
+            shopButton.Click += ShopButtonClick;
 
-            gameComponents = new List<Component>
+            Menu.gameComponents = new List<Component>
             {
                 playButton,
                 shopButton,
@@ -74,8 +72,7 @@ namespace Marksman
                     SplashScreen.Update();
                     break;
                 case GameState.Menu:
-                    foreach (var component in gameComponents)
-                        component.Update(gameTime);
+                    Menu.Update(gameTime);
                     break;
             }
             if (GamePad.GetState(PlayerIndex.One).Buttons.Back == ButtonState.Pressed || keyBoardState.IsKeyDown(Keys.Escape))
@@ -93,8 +90,7 @@ namespace Marksman
                     SplashScreen.Draw(spriteBatch);
                     break;
                 case GameState.Menu:
-                    foreach (var component in gameComponents)
-                        component.Draw(gameTime, spriteBatch);
+                    Menu.Draw(gameTime, spriteBatch);
                     break;
             }
             spriteBatch.End();
