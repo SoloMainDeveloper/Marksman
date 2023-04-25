@@ -1,4 +1,5 @@
-﻿using Microsoft.Xna.Framework;
+﻿using System.Collections.Generic;
+using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Input;
 
@@ -12,13 +13,15 @@ namespace Marksman
 
         public Header()
         {
-            graphics = new GraphicsDeviceManager(this);
+            graphics = new(this);
             Content.RootDirectory = "Content";
             IsMouseVisible = true;
         }
 
         protected override void Initialize()
         {
+            IsMouseVisible = true;
+
             graphics.PreferredBackBufferWidth = 1920;
             graphics.PreferredBackBufferHeight = 1080;
             graphics.ApplyChanges();
@@ -29,6 +32,35 @@ namespace Marksman
         {
             SplashScreen.Background = Content.Load<Texture2D>("Background");
             SplashScreen.Font = Content.Load<SpriteFont>("SplashFont");
+
+            var playButton = new Button(Content.Load<Texture2D>("Controls/PlayButton"), SplashScreen.Font)
+            { Position = new(750, 350) };
+            playButton.Click += PlayButtonClick;
+
+            var quitButton = new Button(Content.Load<Texture2D>("Controls/ExitButton"), SplashScreen.Font)
+            { Position = new(750, 650) };
+            quitButton.Click += QuitButtonClick;
+
+            var shopButton = new Button(Content.Load<Texture2D>("Controls/ShopButton"), SplashScreen.Font)
+            { Position = new(750, 500) };
+            shopButton.Click += ShopButtonClick;
+
+            Menu.gameComponents = new List<Component>
+            {
+                playButton,
+                shopButton,
+                quitButton
+            };
+
+            ShootMode.Aimer = Content.Load<Texture2D>("Assets/Aimer");
+            ShootMode.Target = Content.Load<Texture2D>("Assets/Target");
+            ShootMode.Background = Content.Load<Texture2D>("Assets/Grass");
+            ShootMode.Shots = new();
+            for (var i = 1; i < 7; i++)
+                ShootMode.Shots.Add(Content.Load<Texture2D>("Assets/Shots/Shot" + i));
+            //ShootMode.Shots = Content.Load<Texture2D>();
+            //ShootMode.Buttons = 
+
             spriteBatch = new(GraphicsDevice);
         }
 
@@ -38,10 +70,15 @@ namespace Marksman
             switch (state)
             {
                 case GameState.SplashScreen:
+                    if (keyBoardState.IsKeyDown(Keys.Enter))
+                        state = GameState.Menu;
                     SplashScreen.Update();
                     break;
+                case GameState.Menu:
+                    Menu.Update(gameTime);
+                    break;
             }
-            if (GamePad.GetState(PlayerIndex.One).Buttons.Back == ButtonState.Pressed || Keyboard.GetState().IsKeyDown(Keys.Escape))
+            if (GamePad.GetState(PlayerIndex.One).Buttons.Back == ButtonState.Pressed || keyBoardState.IsKeyDown(Keys.Escape))
                 Exit();
             base.Update(gameTime);
         }
@@ -55,9 +92,21 @@ namespace Marksman
                 case GameState.SplashScreen:
                     SplashScreen.Draw(spriteBatch);
                     break;
+                case GameState.Menu:
+                    Menu.Draw(gameTime, spriteBatch);
+                    break;
+                case GameState.Game:
+                    ShootMode.Draw(gameTime, spriteBatch);
+                    break;
             }
             spriteBatch.End();
             base.Draw(gameTime);
         }
+
+        private void PlayButtonClick(object sender, System.EventArgs e) => state = GameState.Game;
+
+        private void ShopButtonClick(object sender, System.EventArgs e) => state = GameState.Shop;
+
+        private void QuitButtonClick(object sender, System.EventArgs e) => Exit();
     }
 }

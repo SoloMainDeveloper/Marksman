@@ -10,6 +10,7 @@ namespace Marksman
     {
         SplashScreen,
         Menu,
-        Game
+        Game,
+        Shop
     }
 }
