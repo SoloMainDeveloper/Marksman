@@ -11,7 +11,6 @@ namespace Marksman
         private SpriteBatch spriteBatch;
         private GameState state = GameState.SplashScreen;
 
-
         public Header()
         {
             graphics = new(this);
@@ -35,21 +34,15 @@ namespace Marksman
             SplashScreen.Font = Content.Load<SpriteFont>("SplashFont");
 
             var playButton = new Button(Content.Load<Texture2D>("Controls/PlayButton"), SplashScreen.Font)
-            {
-                Position = new Vector2(750, 350)
-            };
+            { Position = new(750, 350) };
             playButton.Click += PlayButtonClick;
 
             var quitButton = new Button(Content.Load<Texture2D>("Controls/ExitButton"), SplashScreen.Font)
-            {
-                Position = new Vector2(750, 650)
-            };
+            { Position = new(750, 650) };
             quitButton.Click += QuitButtonClick;
 
             var shopButton = new Button(Content.Load<Texture2D>("Controls/ShopButton"), SplashScreen.Font)
-            {
-                Position = new Vector2(750, 500)
-            };
+            { Position = new(750, 500) };
             shopButton.Click += ShopButtonClick;
 
             Menu.gameComponents = new List<Component>
@@ -58,6 +51,16 @@ namespace Marksman
                 shopButton,
                 quitButton
             };
+
+            ShootMode.Aimer = Content.Load<Texture2D>("Assets/Aimer");
+            ShootMode.Target = Content.Load<Texture2D>("Assets/Target");
+            ShootMode.Background = Content.Load<Texture2D>("Assets/Grass");
+            ShootMode.Shots = new();
+            for (var i = 1; i < 7; i++)
+                ShootMode.Shots.Add(Content.Load<Texture2D>("Assets/Shots/Shot" + i));
+            //ShootMode.Shots = Content.Load<Texture2D>();
+            //ShootMode.Buttons = 
+
             spriteBatch = new(GraphicsDevice);
         }
 
@@ -91,6 +94,9 @@ namespace Marksman
                     break;
                 case GameState.Menu:
                     Menu.Draw(gameTime, spriteBatch);
+                    break;
+                case GameState.Game:
+                    ShootMode.Draw(gameTime, spriteBatch);
                     break;
             }
             spriteBatch.End();
