@@ -37,6 +37,30 @@
 /processorParam:TextureFormat=Color
 /build:Assets/Grass.jpg;Assets/Grass
 
+#begin Assets/GunControls/button_13.png
+/importer:TextureImporter
+/processor:TextureProcessor
+/processorParam:ColorKeyColor=255,0,255,255
+/processorParam:ColorKeyEnabled=True
+/processorParam:GenerateMipmaps=False
+/processorParam:PremultiplyAlpha=True
+/processorParam:ResizeToPowerOfTwo=False
+/processorParam:MakeSquare=False
+/processorParam:TextureFormat=Color
+/build:Assets/GunControls/button_13.png;Assets/GunControls/ButtonShoot
+
+#begin Assets/GunControls/button_20.png
+/importer:TextureImporter
+/processor:TextureProcessor
+/processorParam:ColorKeyColor=255,0,255,255
+/processorParam:ColorKeyEnabled=True
+/processorParam:GenerateMipmaps=False
+/processorParam:PremultiplyAlpha=True
+/processorParam:ResizeToPowerOfTwo=False
+/processorParam:MakeSquare=False
+/processorParam:TextureFormat=Color
+/build:Assets/GunControls/button_20.png;Assets/GunControls/ButtonReset
+
 #begin Assets/GunControls/ButtonDown.png
 /importer:TextureImporter
 /processor:TextureProcessor
@@ -84,6 +108,18 @@
 /processorParam:MakeSquare=False
 /processorParam:TextureFormat=Color
 /build:Assets/GunControls/ButtonUp.png;Assets/GunControls/ButtonUp
+
+#begin Assets/MenuControls/button_17.png
+/importer:TextureImporter
+/processor:TextureProcessor
+/processorParam:ColorKeyColor=255,0,255,255
+/processorParam:ColorKeyEnabled=True
+/processorParam:GenerateMipmaps=False
+/processorParam:PremultiplyAlpha=True
+/processorParam:ResizeToPowerOfTwo=False
+/processorParam:MakeSquare=False
+/processorParam:TextureFormat=Color
+/build:Assets/MenuControls/button_17.png;Assets/MenuControls/ButtonMenu
 
 #begin Assets/MenuControls/ready_button_01.png
 /importer:TextureImporter

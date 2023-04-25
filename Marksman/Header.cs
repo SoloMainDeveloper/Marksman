@@ -82,9 +82,27 @@ namespace Marksman
             {
                 Position = new(1110, 815)
             };
+
+
+            var resetController = new Button(Content.Load<Texture2D>("Assets/GunControls/ButtonReset"), font)
+            {
+                Position = new(705, 945)
+            };
+
+            var shootButton = new Button(Content.Load<Texture2D>("Assets/GunControls/ButtonShoot"), font)
+            {
+                Position = new(1120, 945)
+            };
+
+            var menuButton = new Button(Content.Load<Texture2D>("Assets/MenuControls/ButtonMenu"), font)
+            {
+                Position = new(10, 13)
+            };
+            menuButton.Click += MenuButtonClick;
+
             ShootMode.Buttons = new List<Button>
             {
-                rightController, leftController, upController, downController
+                rightController, leftController, upController, downController, resetController, menuButton, shootButton
             };
 
             spriteBatch = new(GraphicsDevice);
@@ -135,6 +153,8 @@ namespace Marksman
         private void PlayButtonClick(object sender, System.EventArgs e) => state = GameState.Game;
 
         private void ShopButtonClick(object sender, System.EventArgs e) => state = GameState.Shop;
+
+        private void MenuButtonClick(object sender, System.EventArgs e) => state = GameState.Menu;
 
         private void QuitButtonClick(object sender, System.EventArgs e) => Exit();
     }
