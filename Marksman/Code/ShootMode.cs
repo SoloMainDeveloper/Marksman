@@ -24,10 +24,14 @@ namespace Marksman
             spriteBatch.Draw(Background, Vector2.Zero, Color.White);
             spriteBatch.Draw(Target, new Rectangle(posXtarget, 10, Target.Width, Target.Height), Color.White);
             spriteBatch.Draw(Aimer, new Rectangle(posXaimer, 1080 - Aimer.Height, Aimer.Width, Aimer.Height), Color.White);
-            foreach (var shot in Shots)
-                spriteBatch.Draw(shot, new Rectangle(0, 0, shot.Width, shot.Height), Color.White);
-            //foreach (var button in Buttons)
-            //    button.Draw(gameTime, spriteBatch);
+            foreach (var button in Buttons)
+                button.Draw(gameTime, spriteBatch);
+        }
+
+        public static void Update(GameTime gameTime)
+        {
+            foreach (var button in Buttons)
+                button.Update(gameTime);
         }
     }
 }

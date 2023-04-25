@@ -10,6 +10,7 @@ namespace Marksman
         private GraphicsDeviceManager graphics;
         private SpriteBatch spriteBatch;
         private GameState state = GameState.SplashScreen;
+        private SpriteFont font;
 
         public Header()
         {
@@ -30,18 +31,19 @@ namespace Marksman
 
         protected override void LoadContent()
         {
+            font = Content.Load<SpriteFont>("SplashFont");
             SplashScreen.Background = Content.Load<Texture2D>("Background");
             SplashScreen.Font = Content.Load<SpriteFont>("SplashFont");
 
-            var playButton = new Button(Content.Load<Texture2D>("Controls/PlayButton"), SplashScreen.Font)
+            var playButton = new Button(Content.Load<Texture2D>("Assets/MenuControls/PlayButton"), font)
             { Position = new(750, 350) };
             playButton.Click += PlayButtonClick;
 
-            var quitButton = new Button(Content.Load<Texture2D>("Controls/ExitButton"), SplashScreen.Font)
+            var quitButton = new Button(Content.Load<Texture2D>("Assets/MenuControls/QuitButton"), font)
             { Position = new(750, 650) };
             quitButton.Click += QuitButtonClick;
 
-            var shopButton = new Button(Content.Load<Texture2D>("Controls/ShopButton"), SplashScreen.Font)
+            var shopButton = new Button(Content.Load<Texture2D>("Assets/MenuControls/ShopButton"), font)
             { Position = new(750, 500) };
             shopButton.Click += ShopButtonClick;
 
@@ -58,8 +60,32 @@ namespace Marksman
             ShootMode.Shots = new();
             for (var i = 1; i < 7; i++)
                 ShootMode.Shots.Add(Content.Load<Texture2D>("Assets/Shots/Shot" + i));
-            //ShootMode.Shots = Content.Load<Texture2D>();
-            //ShootMode.Buttons = 
+            var rightController = new Button(Content.Load<Texture2D>("Assets/GunControls/ButtonRight"), font)
+            {
+                Position = new(1020, 650)
+            };
+
+
+            var leftController = new Button(Content.Load<Texture2D>("Assets/GunControls/ButtonLeft"), font)
+            {
+                Position = new(820, 650)
+            };
+
+
+            var upController = new Button(Content.Load<Texture2D>("Assets/GunControls/ButtonUp"), font)
+            {
+                Position = new(1110, 725)
+            };
+
+
+            var downController = new Button(Content.Load<Texture2D>("Assets/GunControls/ButtonDown"), font)
+            {
+                Position = new(1110, 815)
+            };
+            ShootMode.Buttons = new List<Button>
+            {
+                rightController, leftController, upController, downController
+            };
 
             spriteBatch = new(GraphicsDevice);
         }
@@ -76,6 +102,9 @@ namespace Marksman
                     break;
                 case GameState.Menu:
                     Menu.Update(gameTime);
+                    break;
+                case GameState.Game:
+                    ShootMode.Update(gameTime);
                     break;
             }
             if (GamePad.GetState(PlayerIndex.One).Buttons.Back == ButtonState.Pressed || keyBoardState.IsKeyDown(Keys.Escape))
