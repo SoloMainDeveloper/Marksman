@@ -53,10 +53,12 @@ namespace Marksman
                 playButton, shopButton, quitButton
             };
 
-            ShootMode.Font = font;
+            ShootMode.MainFont = font;
+            ShootMode.NotebookFont = Content.Load<SpriteFont>("Assets/Fonts/NotebookFont");
             ShootMode.Aimer = Content.Load<Texture2D>("Assets/Aimer");
             ShootMode.Target = Content.Load<Texture2D>("Assets/Target");
             ShootMode.Background = Content.Load<Texture2D>("Assets/Grass");
+            ShootMode.Notebook = Content.Load<Texture2D>("Assets/Notebook");
             ShootMode.Shots = new Texture2D[6];
             for (var i = 1; i < 7; i++)
                 ShootMode.Shots[i - 1] = Content.Load<Texture2D>("Assets/Shots/Shot" + i);
@@ -78,21 +80,15 @@ namespace Marksman
             downController.Click += ShootMode.ClickAimerDown;
 
             var resetController = new Button(Content.Load<Texture2D>("Assets/GunControls/ButtonReset"), font)
-            {
-                Position = new(705, 945)
-            };
+            { Position = new(705, 945) };
             resetController.Click += ShootMode.ClickResetOffset;
 
             var shootButton = new Button(Content.Load<Texture2D>("Assets/GunControls/ButtonShoot"), font)
-            {
-                Position = new(1120, 945)
-            };
+            { Position = new(1120, 945) };
             shootButton.Click += ShootMode.Shoot;
 
             var menuButton = new Button(Content.Load<Texture2D>("Assets/MenuControls/ButtonMenu"), font)
-            {
-                Position = new(10, 13)
-            };
+            { Position = new(10, 13) };
             menuButton.Click += MenuButtonClick;
 
             ShootMode.Buttons = new List<Button>
