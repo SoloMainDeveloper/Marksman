@@ -7,6 +7,7 @@ namespace Marksman
 {
     public class Header : Game
     {
+        public int Level = 1;
         private GraphicsDeviceManager graphics;
         private SpriteBatch spriteBatch;
         private GameState state = GameState.SplashScreen;
@@ -49,50 +50,44 @@ namespace Marksman
 
             Menu.gameComponents = new List<Component>
             {
-                playButton,
-                shopButton,
-                quitButton
+                playButton, shopButton, quitButton
             };
 
+            ShootMode.Font = font;
             ShootMode.Aimer = Content.Load<Texture2D>("Assets/Aimer");
             ShootMode.Target = Content.Load<Texture2D>("Assets/Target");
             ShootMode.Background = Content.Load<Texture2D>("Assets/Grass");
-            ShootMode.Shots = new();
+            ShootMode.Shots = new Texture2D[6];
             for (var i = 1; i < 7; i++)
-                ShootMode.Shots.Add(Content.Load<Texture2D>("Assets/Shots/Shot" + i));
-            var rightController = new Button(Content.Load<Texture2D>("Assets/GunControls/ButtonRight"), font)
-            {
-                Position = new(1020, 650)
-            };
+                ShootMode.Shots[i - 1] = Content.Load<Texture2D>("Assets/Shots/Shot" + i);
 
+            var rightController = new Button(Content.Load<Texture2D>("Assets/GunControls/ButtonRight"), font)
+            { Position = new(1020, 650) };
+            rightController.Click += ShootMode.ClickAimerRight;
 
             var leftController = new Button(Content.Load<Texture2D>("Assets/GunControls/ButtonLeft"), font)
-            {
-                Position = new(820, 650)
-            };
-
+            { Position = new(820, 650) };
+            leftController.Click += ShootMode.ClickAimerLeft;
 
             var upController = new Button(Content.Load<Texture2D>("Assets/GunControls/ButtonUp"), font)
-            {
-                Position = new(1110, 725)
-            };
-
+            { Position = new(1110, 725) };
+            upController.Click += ShootMode.ClickAimerUp;
 
             var downController = new Button(Content.Load<Texture2D>("Assets/GunControls/ButtonDown"), font)
-            {
-                Position = new(1110, 815)
-            };
-
+            { Position = new(1110, 815) };
+            downController.Click += ShootMode.ClickAimerDown;
 
             var resetController = new Button(Content.Load<Texture2D>("Assets/GunControls/ButtonReset"), font)
             {
                 Position = new(705, 945)
             };
+            resetController.Click += ShootMode.ClickResetOffset;
 
             var shootButton = new Button(Content.Load<Texture2D>("Assets/GunControls/ButtonShoot"), font)
             {
                 Position = new(1120, 945)
             };
+            shootButton.Click += ShootMode.Shoot;
 
             var menuButton = new Button(Content.Load<Texture2D>("Assets/MenuControls/ButtonMenu"), font)
             {
@@ -102,7 +97,8 @@ namespace Marksman
 
             ShootMode.Buttons = new List<Button>
             {
-                rightController, leftController, upController, downController, resetController, menuButton, shootButton
+                rightController, leftController, upController, downController,
+                resetController, menuButton, shootButton
             };
 
             spriteBatch = new(GraphicsDevice);
@@ -150,7 +146,11 @@ namespace Marksman
             base.Draw(gameTime);
         }
 
-        private void PlayButtonClick(object sender, System.EventArgs e) => state = GameState.Game;
+        private void PlayButtonClick(object sender, System.EventArgs e)
+        {
+            state = GameState.Game;
+            ShootMode.CreateLevel(150, 4, Direction.Left, 3);
+        }
 
         private void ShopButtonClick(object sender, System.EventArgs e) => state = GameState.Shop;
 
