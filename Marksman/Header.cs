@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Input;
@@ -7,10 +8,10 @@ namespace Marksman
 {
     public class Header : Game
     {
-        public int Level = 1;
+        public static int Level = 1;
         private GraphicsDeviceManager graphics;
         private SpriteBatch spriteBatch;
-        private GameState state = GameState.SplashScreen;
+        private static GameState state = GameState.SplashScreen;
         private SpriteFont font;
 
         public Header()
@@ -23,7 +24,6 @@ namespace Marksman
         protected override void Initialize()
         {
             IsMouseVisible = true;
-
             graphics.PreferredBackBufferWidth = 1920;
             graphics.PreferredBackBufferHeight = 1080;
             graphics.ApplyChanges();
@@ -38,15 +38,10 @@ namespace Marksman
 
             var playButton = new Button(Content.Load<Texture2D>("Assets/MenuControls/PlayButton"), font)
             { Position = new(750, 350) };
-            playButton.Click += PlayButtonClick;
-
             var quitButton = new Button(Content.Load<Texture2D>("Assets/MenuControls/QuitButton"), font)
             { Position = new(750, 650) };
-            quitButton.Click += QuitButtonClick;
-
             var shopButton = new Button(Content.Load<Texture2D>("Assets/MenuControls/ShopButton"), font)
             { Position = new(750, 500) };
-            shopButton.Click += ShopButtonClick;
 
             Menu.gameComponents = new List<Component>
             {
@@ -96,6 +91,9 @@ namespace Marksman
                 rightController, leftController, upController, downController,
                 resetController, menuButton, shootButton
             };
+            playButton.Click += PlayButtonClick;
+            quitButton.Click += QuitButtonClick;
+            shopButton.Click += ShopButtonClick;
 
             spriteBatch = new(GraphicsDevice);
         }
@@ -137,21 +135,24 @@ namespace Marksman
                 case GameState.Game:
                     ShootMode.Draw(gameTime, spriteBatch);
                     break;
+                case GameState.Shop:
+                    Shop.Draw(gameTime, spriteBatch);
+                    break;
             }
             spriteBatch.End();
             base.Draw(gameTime);
         }
 
-        private void PlayButtonClick(object sender, System.EventArgs e)
+        private void MenuButtonClick(object sender, EventArgs e) => state = GameState.Menu;
+
+        private void PlayButtonClick(object sender, EventArgs e)
         {
             state = GameState.Game;
             ShootMode.CreateLevel(150, 4, Direction.Left, 3);
         }
 
-        private void ShopButtonClick(object sender, System.EventArgs e) => state = GameState.Shop;
+        private void ShopButtonClick(object sender, EventArgs e) => state = GameState.Shop;
 
-        private void MenuButtonClick(object sender, System.EventArgs e) => state = GameState.Menu;
-
-        private void QuitButtonClick(object sender, System.EventArgs e) => Exit();
+        private void QuitButtonClick(object sender, EventArgs e) => Exit();
     }
 }

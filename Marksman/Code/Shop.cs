@@ -6,18 +6,18 @@ using System.Threading.Tasks;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 
-namespace Marksman.Code
+namespace Marksman
 {
-    internal class Shop : Component
+    internal class Shop
     {
         private List<Component> gameComponents;
 
-        public override void Draw(GameTime gameTime, SpriteBatch spriteBatch)
+        public static void Draw(GameTime gameTime, SpriteBatch spriteBatch)
         {
             throw new NotImplementedException();
         }
 
-        public override void Update(GameTime gameTime)
+        public static void Update(GameTime gameTime)
         {
             throw new NotImplementedException();
         }
