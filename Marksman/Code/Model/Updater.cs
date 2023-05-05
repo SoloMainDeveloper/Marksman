@@ -5,31 +5,34 @@ using System.Text;
 using System.Threading.Tasks;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
+using Microsoft.Xna.Framework.Input;
 
 namespace Marksman
 {
-    internal class DrawEverything
+    internal class Updater
     {
-        public static void Draw(GameTime gameTime, SpriteBatch spriteBatch)
+        public static void Update(GameTime gameTime, Header game)
         {
             switch (Main.state)
             {
                 case GameState.SplashScreen:
-                    SplashScreen.Draw(spriteBatch);
+                    SplashScreen.Update();
                     break;
                 case GameState.Menu:
-                    Menu.Draw(gameTime, spriteBatch);
+                    Menu.Update(gameTime);
                     break;
                 case GameState.Game:
-                    ShootMode.Draw(gameTime, spriteBatch);
+                    ShootMode.Update(gameTime);
                     break;
                 case GameState.Levels:
-                    Levels.Draw(gameTime, spriteBatch);
+                    Levels.Update(gameTime);
                     break;
                 case GameState.Shop:
-                    Shop.Draw(gameTime, spriteBatch);
+                    Levels.Update(gameTime);
                     break;
             }
+            if (GamePad.GetState(PlayerIndex.One).Buttons.Back == ButtonState.Pressed || Keyboard.GetState().IsKeyDown(Keys.Escape))
+                game.Exit();
         }
     }
 }

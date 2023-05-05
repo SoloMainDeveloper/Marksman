@@ -8,7 +8,7 @@ using Microsoft.Xna.Framework.Graphics;
 
 namespace Marksman
 {
-    public class ShootMode
+    public partial class ShootMode
     {
         public static SpriteFont MainFont { get; set; }
         public static SpriteFont NotebookFont { get; set; }
@@ -16,14 +16,15 @@ namespace Marksman
         public static Texture2D Target { get; set; }
         public static Texture2D Aimer { get; set; }
         public static Texture2D Notebook { get; set; }
+        public static Texture2D BulletInfo { get; set; }
         public static Texture2D[] Shots { get; set; }
         public static List<Button> Buttons { get; set; }
 
         private static int centerX = 960;
         private static int targetCenterY;
 
-        private static int dy = 0;
-        private static int dx = 0;
+        public static int dy = 0;
+        public static int dx = 0;
 
         private static int windPowerX;
         private static int distance;
@@ -38,7 +39,7 @@ namespace Marksman
         private static double lastShotDistance;
         private static List<Rectangle> shotsPos;
 
-        public static void CreateLevel(int distanceToAim, int powerWindX, Direction directionWind, int randOffset)
+        public static void CreateLevel(int distanceToAim, int powerWindX, Direction directionWind, double randOffset)
         {
             distance = distanceToAim;
             windPowerX = powerWindX;
@@ -71,13 +72,15 @@ namespace Marksman
             spriteBatch.DrawString(NotebookFont, $"{GetDirectionText()}", new(1595, 169), noteColor);
             if (shotsDone != 0)
             {
-                spriteBatch.DrawString(NotebookFont, "Последний выстрел:", new(1595, 202), noteColor);
-                spriteBatch.DrawString(NotebookFont, $"Откл. {GetOffsetTextX()}: {Math.Abs(lastShotOffsetX)}см", new(1595, 235), noteColor);
-                spriteBatch.DrawString(NotebookFont, $"Откл. {GetOffsetTextY()}: {Math.Abs(lastShotOffsetY)}см", new(1595, 268), noteColor);
-                spriteBatch.DrawString(NotebookFont, $"От центра: {lastShotDistance}см", new(1595, 301), noteColor);
-                spriteBatch.DrawString(NotebookFont, $"Оценка: {GetMark()}", new(1595, 334), noteColor);
+                spriteBatch.DrawString(NotebookFont, "Последний выстрел:", new(1595, 202), Color.Red);
+                spriteBatch.DrawString(NotebookFont, $"Откл. {GetOffsetTextX()}: {Math.Abs(lastShotOffsetX)}см", new(1595, 235), Color.Red);
+                spriteBatch.DrawString(NotebookFont, $"Откл. {GetOffsetTextY()}: {Math.Abs(lastShotOffsetY)}см", new(1595, 268), Color.Red);
+                spriteBatch.DrawString(NotebookFont, $"От центра: {lastShotDistance}см", new(1595, 301), Color.Red);
+                spriteBatch.DrawString(NotebookFont, $"Оценка: {GetMark()}", new(1595, 334), Color.Red);
             }
 
+            spriteBatch.Draw(BulletInfo, new Rectangle(20, 120, Notebook.Width, Notebook.Height), Color.White);
+            DrawBulletInfo(gameTime, spriteBatch);
 
             spriteBatch.DrawString(MainFont, GetSign(dx) + dx, GetOffsetTextPosX(), Color.White);
             spriteBatch.DrawString(MainFont, GetSign(dy) + dy, GetOffsetTextPosY(), Color.White);
@@ -97,16 +100,6 @@ namespace Marksman
                 button.Update(gameTime);
         }
 
-        public static void ClickAimerUp(object sender, EventArgs e) => dy++;
-        public static void ClickAimerDown(object sender, EventArgs e) => dy--;
-        public static void ClickAimerRight(object sender, EventArgs e) => dx++;
-        public static void ClickAimerLeft(object sender, EventArgs e) => dx--;
-        public static void ClickResetOffset(object sender, EventArgs e)
-        {
-            dx = 0;
-            dy = 0;
-        }
-
         public static void Shoot(object sender, EventArgs e)
         {
             var absOffsetX = GetBulletOffsetX(distance, windPowerX);
@@ -116,8 +109,8 @@ namespace Marksman
             var randX = 1.5 - random.NextDouble() * randomOffset;
             var randY = 1.5 - random.NextDouble() * randomOffset;
 
-            var playerOffsetX = dx * 0.75;
-            var playerOffsetY = dy * 0.75;
+            var playerOffsetX = dx * 0.75 * distance / 100;
+            var playerOffsetY = dy * 0.75 * distance / 100;
 
             var offsetX = Math.Round(playerOffsetX + realOffsetX + randX, 2);
             lastShotOffsetX = offsetX;
@@ -128,48 +121,24 @@ namespace Marksman
             shotsDone++;
         }
 
-        private static double GetBulletOffsetX(int distance, int windX) => windX == 0 ? 0 : offsetWind308[(windX, distance)];
-
-        private static double GetBulletOffsetY(int distance) => offsetFalling150m[distance];
-
-        private static string GetSign(int x)
+        private static void DrawBulletInfo(GameTime gameTime, SpriteBatch spriteBatch)
         {
-            if (x > 0) return "+";
-            if (x < 0) return string.Empty;
-            return " ";
-        }
-
-        private static double GetDistanceToCentreTarget()
-        {
-            return Math.Round(Math.Sqrt(lastShotOffsetX * lastShotOffsetX + lastShotOffsetY * lastShotOffsetY), 2);
-        }
-        private static double GetMark()
-        {
-            var mark = 10 - (int)(lastShotDistance) / 3;
-            return mark > 0 ? mark : 0;
-
-        }
-        private static string GetDirectionText()
-        {
-            switch (windDirectionX)
+            var pos = new Vector2(145, 210);
+            var info = new List<string>();
+            info.Add("Снос по X");
+            info.Add($"Ветер   {windPowerX} м/с");
+            info.Add("Дист. м  Снос см");
+            for (var i = 1; i < 9; i++)
             {
-                case Direction.Up:
-                    return "вверх";
-                case Direction.Down:
-                    return "вниз";
-                case Direction.Right:
-                    return "вправо";
-                case Direction.Left:
-                    return "влево";
-                default: return "нет ветра";
+                var dist = i * 50;
+                info.Add($"{dist}   {offsetWind308[(windPowerX, dist)]}");
+            }
+            foreach (var str in info)
+            {
+                spriteBatch.DrawString(NotebookFont, str, pos, Color.DarkBlue);
+                pos += new Vector2(0, 25);
             }
         }
-        private static string GetOffsetTextX() => lastShotOffsetX < 0 ? "влево" : "вправо";
-        private static string GetOffsetTextY() => lastShotOffsetY < 0 ? "вниз" : "вверх";
-
-        private static Vector2 GetOffsetTextPosX() => dx > 0 ? new(centerX - 32, 600) : new(centerX - 22, 600);
-
-        private static Vector2 GetOffsetTextPosY() => dy > 0 ? new(1153, 779) : new(1163, 779);
 
         private static Dictionary<(int, int), double> offsetWind308 = new()
         {

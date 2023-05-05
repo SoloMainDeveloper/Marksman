@@ -10,16 +10,16 @@ namespace Marksman
 {
     internal class Shop
     {
-        private List<Component> gameComponents;
+        private static List<Component> gameComponents;
 
         public static void Draw(GameTime gameTime, SpriteBatch spriteBatch)
         {
-            throw new NotImplementedException();
+            
         }
 
         public static void Update(GameTime gameTime)
         {
-            throw new NotImplementedException();
+            
         }
     }
 }

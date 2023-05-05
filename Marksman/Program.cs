@@ -1,3 +1,2 @@
-﻿
-using var game = new Marksman.Header();
+﻿using var game = new Marksman.Header();
 game.Run();

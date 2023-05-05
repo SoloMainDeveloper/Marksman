@@ -5,6 +5,7 @@ using System.Text;
 using System.Threading.Tasks;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
+using Microsoft.Xna.Framework.Input;
 
 namespace Marksman
 {
@@ -23,7 +24,12 @@ namespace Marksman
             spriteBatch.DrawString(Font, "Нажмите Enter, чтобы продолжить", new(1270, 1000), color);
         }
 
-        public static void Update() => color = Color.FromNonPremultiplied(0, 0, 0, GetColorOfTime());
+        public static void Update()
+        {
+            if (Keyboard.GetState().IsKeyDown(Keys.Enter))
+                Main.state = GameState.Menu;
+            color = Color.FromNonPremultiplied(0, 0, 0, GetColorOfTime());
+        }
 
         public static int GetColorOfTime()
         {

@@ -11,6 +11,7 @@ namespace Marksman
         SplashScreen,
         Menu,
         Game,
+        Levels,
         Shop
     }
 }
