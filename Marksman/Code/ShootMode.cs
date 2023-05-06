@@ -20,24 +20,24 @@ namespace Marksman
         public static Texture2D[] Shots { get; set; }
         public static List<Button> Buttons { get; set; }
 
-        private static int centerX = 960;
-        private static int targetCenterY;
+        public static int centerX = 960;
+        public static int targetCenterY;
 
         public static int dy = 0;
         public static int dx = 0;
 
-        private static int windPowerX;
-        private static int distance;
-        private static Direction windDirectionX;
-        private static double randomOffset;
+        public static int windPowerX;
+        public static int distance;
+        public static Direction windDirectionX;
+        public static double randomOffset;
 
-        private static int score;
-        private static int scorePerShot;
-        private static int shotsDone;
-        private static double lastShotOffsetX;
-        private static double lastShotOffsetY;
-        private static double lastShotDistance;
-        private static List<Rectangle> shotsPos;
+        public static int score;
+        public static int scorePerShot;
+        public static int shotsDone;
+        public static double lastShotOffsetX;
+        public static double lastShotOffsetY;
+        public static double lastShotDistance;
+        public static List<Rectangle> shotsPos;
 
         public static void CreateLevel(int distanceToAim, int powerWindX, Direction directionWind, double randOffset)
         {
@@ -53,51 +53,6 @@ namespace Marksman
             score = 0;
             dx = 0;
             dy = 0;
-        }
-
-        public static void Draw(GameTime gameTime, SpriteBatch spriteBatch)
-        {
-            targetCenterY = 10 + Target.Height / 2;
-            var posXtarget = centerX - Target.Width / 2;
-            var posXaimer = centerX - Aimer.Width / 2;
-            spriteBatch.Draw(Background, Vector2.Zero, Color.White);
-            spriteBatch.Draw(Target, new Rectangle(posXtarget, 10, Target.Width, Target.Height), Color.White);
-            spriteBatch.Draw(Aimer, new Rectangle(posXaimer, 1080 - Aimer.Height, Aimer.Width, Aimer.Height), Color.White);
-
-            var noteColor = Color.DarkBlue;
-            spriteBatch.Draw(Notebook, new Rectangle(1510, 10, Notebook.Width, Notebook.Height), Color.White);
-            spriteBatch.DrawString(NotebookFont, $"Дистанция: {distance}м", new(1595, 70), noteColor);
-            spriteBatch.DrawString(NotebookFont, $"Ветер: {windPowerX}м/с", new(1595, 103), noteColor);
-            spriteBatch.DrawString(NotebookFont, $"Направление ветра:", new(1595, 136), noteColor);
-            spriteBatch.DrawString(NotebookFont, $"{GetDirectionText()}", new(1595, 169), noteColor);
-            if (shotsDone != 0)
-            {
-                spriteBatch.DrawString(NotebookFont, "Последний выстрел:", new(1595, 202), Color.Red);
-                spriteBatch.DrawString(NotebookFont, $"Откл. {GetOffsetTextX()}: {Math.Abs(lastShotOffsetX)}см", new(1595, 235), Color.Red);
-                spriteBatch.DrawString(NotebookFont, $"Откл. {GetOffsetTextY()}: {Math.Abs(lastShotOffsetY)}см", new(1595, 268), Color.Red);
-                spriteBatch.DrawString(NotebookFont, $"От центра: {lastShotDistance}см", new(1595, 301), Color.Red);
-                spriteBatch.DrawString(NotebookFont, $"Оценка: {GetMark()}", new(1595, 334), Color.Red);
-            }
-
-            spriteBatch.Draw(BulletInfo, new Rectangle(20, 120, Notebook.Width, Notebook.Height), Color.White);
-            DrawBulletInfo(gameTime, spriteBatch);
-
-            spriteBatch.DrawString(MainFont, GetSign(dx) + dx, GetOffsetTextPosX(), Color.White);
-            spriteBatch.DrawString(MainFont, GetSign(dy) + dy, GetOffsetTextPosY(), Color.White);
-            foreach (var button in Buttons)
-                button.Draw(gameTime, spriteBatch);
-            var i = 0;
-            foreach (var shot in shotsPos)
-            {
-                spriteBatch.Draw(Shots[i % 6], shot, Color.White);
-                i++;
-            }
-        }
-
-        public static void Update(GameTime gameTime)
-        {
-            foreach (var button in Buttons)
-                button.Update(gameTime);
         }
 
         public static void Shoot(object sender, EventArgs e)
@@ -121,26 +76,7 @@ namespace Marksman
             shotsDone++;
         }
 
-        private static void DrawBulletInfo(GameTime gameTime, SpriteBatch spriteBatch)
-        {
-            var pos = new Vector2(145, 210);
-            var info = new List<string>();
-            info.Add("Снос по X");
-            info.Add($"Ветер   {windPowerX} м/с");
-            info.Add("Дист. м  Снос см");
-            for (var i = 1; i < 9; i++)
-            {
-                var dist = i * 50;
-                info.Add($"{dist}   {offsetWind308[(windPowerX, dist)]}");
-            }
-            foreach (var str in info)
-            {
-                spriteBatch.DrawString(NotebookFont, str, pos, Color.DarkBlue);
-                pos += new Vector2(0, 25);
-            }
-        }
-
-        private static Dictionary<(int, int), double> offsetWind308 = new()
+        public readonly static Dictionary<(int, int), double> offsetWind308 = new()
         {
             { (2, 50), 0.5 },
             { (2, 100), 1 },
@@ -170,7 +106,7 @@ namespace Marksman
             { (8, 400), 84 },
         };
 
-        private static Dictionary<int, double> offsetFalling150m = new()
+        public readonly static Dictionary<int, double> offsetFalling150m = new()
         {
             { 50, 1.8 },
             { 100, 4 },

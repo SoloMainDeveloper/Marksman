@@ -10,19 +10,19 @@ namespace Marksman
 {
     public partial class ShootMode
     {
-        private static double GetBulletOffsetX(int distance, int windX) => windX == 0 ? 0 : offsetWind308[(windX, distance)];
-        private static double GetBulletOffsetY(int distance) => offsetFalling150m[distance];
-        private static string GetSign(int x)
+        public static double GetBulletOffsetX(int distance, int windX) => windX == 0 ? 0 : offsetWind308[(windX, distance)];
+        public static double GetBulletOffsetY(int distance) => offsetFalling150m[distance];
+        public static string GetSign(int x)
         {
             if (x > 0) return "+";
             if (x < 0) return string.Empty;
             return " ";
         }
-        private static double GetDistanceToCentreTarget()
+        public static double GetDistanceToCentreTarget()
         {
             return Math.Round(Math.Sqrt(lastShotOffsetX * lastShotOffsetX + lastShotOffsetY * lastShotOffsetY), 2);
         }
-        private static double GetMark()
+        public static double GetMark()
         {
             var mark = 10 - (int)lastShotDistance / 3;
             scorePerShot = mark;
@@ -30,7 +30,7 @@ namespace Marksman
             return mark > 0 ? mark : 0;
 
         }
-        private static string GetDirectionText()
+        public static string GetDirectionText()
         {
             switch (windDirectionX)
             {
@@ -45,9 +45,9 @@ namespace Marksman
                 default: return "нет ветра";
             }
         }
-        private static string GetOffsetTextX() => lastShotOffsetX < 0 ? "влево" : "вправо";
-        private static string GetOffsetTextY() => lastShotOffsetY < 0 ? "вниз" : "вверх";
-        private static Vector2 GetOffsetTextPosX() => dx > 0 ? new(centerX - 32, 600) : new(centerX - 22, 600);
-        private static Vector2 GetOffsetTextPosY() => dy > 0 ? new(1153, 779) : new(1163, 779);
+        public static string GetOffsetTextX() => lastShotOffsetX < 0 ? "влево" : "вправо";
+        public static string GetOffsetTextY() => lastShotOffsetY < 0 ? "вниз" : "вверх";
+        public static Vector2 GetOffsetTextPosX() => dx > 0 ? new(centerX - 32, 600) : new(centerX - 22, 600);
+        public static Vector2 GetOffsetTextPosY() => dy > 0 ? new(1153, 779) : new(1163, 779);
     }
 }

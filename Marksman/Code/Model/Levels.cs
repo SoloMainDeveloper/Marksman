@@ -10,18 +10,7 @@ namespace Marksman
 {
     internal class Levels
     {
-        private static List<Component> levelButtons { get; set; }
-        public static void Draw(GameTime gameTime, SpriteBatch spriteBatch)
-        {
-            foreach (var button in levelButtons)
-                button.Draw(gameTime, spriteBatch);
-        }
-
-        public static void Update(GameTime gameTime)
-        {
-            foreach (var button in levelButtons)
-                button.Update(gameTime);
-        }
+        public static List<Component> levelButtons { get; set; }
 
         public static void CreateLevel()
         {

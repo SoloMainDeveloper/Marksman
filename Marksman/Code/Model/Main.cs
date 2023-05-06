@@ -8,6 +8,7 @@ namespace Marksman
 {
     internal class Main
     {
+        public static Microsoft.Xna.Framework.Content.ContentManager Content { get; set; }
         public static GameState state = GameState.SplashScreen;
         public static int Level = 0;
     }

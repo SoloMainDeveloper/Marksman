@@ -12,8 +12,9 @@ namespace Marksman
 {
     internal class Loader
     {
-        public static void LoadEverything(Microsoft.Xna.Framework.Content.ContentManager Content)
+        public static void LoadEverything()
         {
+            var Content = Main.Content;
             var font = Content.Load<SpriteFont>("SplashFont");
             SplashScreen.Background = Content.Load<Texture2D>("Background");
             SplashScreen.Font = Content.Load<SpriteFont>("SplashFont");

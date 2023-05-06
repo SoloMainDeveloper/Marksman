@@ -22,6 +22,7 @@ namespace Marksman
         protected override void Initialize()
         {
             IsMouseVisible = true;
+            Main.Content = Content;
             graphics.PreferredBackBufferWidth = 1920;
             graphics.PreferredBackBufferHeight = 1080;
             graphics.ApplyChanges();
@@ -30,7 +31,7 @@ namespace Marksman
 
         protected override void LoadContent()
         {
-            Loader.LoadEverything(Content);
+            Loader.LoadEverything();
             spriteBatch = new(GraphicsDevice);
         }
 
