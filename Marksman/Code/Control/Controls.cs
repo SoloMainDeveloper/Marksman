@@ -66,14 +66,10 @@ namespace Marksman
 
         private static void QuitButtonClick(object sender, EventArgs e) => Game.Exit();
 
-        private static void ClickAimerUp(object sender, EventArgs e) => ShootMode.dy++;
-        private static void ClickAimerDown(object sender, EventArgs e) => ShootMode.dy--;
-        private static void ClickAimerRight(object sender, EventArgs e) => ShootMode.dx++;
-        private static void ClickAimerLeft(object sender, EventArgs e) => ShootMode.dx--;
-        private static void ClickResetOffset(object sender, EventArgs e)
-        {
-            ShootMode.dx = 0;
-            ShootMode.dy = 0;
-        }
+        private static void ClickAimerUp(object sender, EventArgs e) => ShootMode.ChangeDy(1);
+        private static void ClickAimerDown(object sender, EventArgs e) => ShootMode.ChangeDy(-1);
+        private static void ClickAimerRight(object sender, EventArgs e) => ShootMode.ChangeDx(1);
+        private static void ClickAimerLeft(object sender, EventArgs e) => ShootMode.ChangeDx(-1);
+        private static void ClickResetOffset(object sender, EventArgs e) => ShootMode.ResetDxDy();
     }
 }

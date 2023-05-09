@@ -49,7 +49,7 @@ namespace Marksman
 
         private static void MenuUpdate(GameTime gameTime)
         {
-            foreach (var component in Menu.gameComponents)
+            foreach (var component in Menu.GameComponents)
                 component.Update(gameTime);
         }
 

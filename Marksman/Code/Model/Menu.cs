@@ -10,7 +10,6 @@ namespace Marksman
 {
     public class Menu
     {
-        public static List<Component> gameComponents { get; set; }
-        public static Texture2D Background { get; set; }
+        public static List<Component> GameComponents { get; set; }
     }
 }

@@ -10,8 +10,8 @@ namespace Marksman
 {
     public partial class ShootMode
     {
-        public static double GetBulletOffsetX(int distance, int windX) => windX == 0 ? 0 : offsetWind308[(windX, distance)];
-        public static double GetBulletOffsetY(int distance) => offsetFalling150m[distance];
+        public static double GetBulletOffsetX(int distance, int windX) => windX == 0 ? 0 : GunsInfo.offsetXWind308[(windX, distance)];
+        public static double GetBulletOffsetY(int distance) => GunsInfo.offsetY150m308[distance];
         public static string GetSign(int x)
         {
             if (x > 0) return "+";
@@ -20,34 +20,31 @@ namespace Marksman
         }
         public static double GetDistanceToCentreTarget()
         {
-            return Math.Round(Math.Sqrt(lastShotOffsetX * lastShotOffsetX + lastShotOffsetY * lastShotOffsetY), 2);
+            return Math.Round(Math.Sqrt(LastShotOffsetX * LastShotOffsetX + LastShotOffsetY * LastShotOffsetY), 2);
         }
-        public static double GetMark()
-        {
-            var mark = 10 - (int)lastShotDistance / 3;
-            scorePerShot = mark;
-            score += mark;
-            return mark > 0 ? mark : 0;
-
-        }
+        public static double GetMark() => LastShotDistance > TargetSize ? 0 : 10 - (int)LastShotDistance / 3;
+        public static string GetOffsetTextX() => LastShotOffsetX < 0 ? "влево" : "вправо";
+        public static string GetOffsetTextY() => LastShotOffsetY < 0 ? "вниз" : "вверх";
+        public static Vector2 GetOffsetTextPosX() => dx > 0 ? new(Main.CenterX - 32, 600) : new(Main.CenterX - 22, 600);
+        public static Vector2 GetOffsetTextPosY() => dy > 0 ? new(1153, 779) : new(1163, 779);
         public static string GetDirectionText()
         {
-            switch (windDirectionX)
+            return WindDirectionX switch
             {
-                case Direction.Up:
-                    return "вверх";
-                case Direction.Down:
-                    return "вниз";
-                case Direction.Right:
-                    return "вправо";
-                case Direction.Left:
-                    return "влево";
-                default: return "нет ветра";
-            }
+                Direction.Up => "вверх",
+                Direction.Down => "вниз",
+                Direction.Right => "вправо",
+                Direction.Left => "влево",
+                _ => "нет ветра",
+            };
         }
-        public static string GetOffsetTextX() => lastShotOffsetX < 0 ? "влево" : "вправо";
-        public static string GetOffsetTextY() => lastShotOffsetY < 0 ? "вниз" : "вверх";
-        public static Vector2 GetOffsetTextPosX() => dx > 0 ? new(centerX - 32, 600) : new(centerX - 22, 600);
-        public static Vector2 GetOffsetTextPosY() => dy > 0 ? new(1153, 779) : new(1163, 779);
+
+        public static void ChangeDx(int diff) => dx += diff;
+        public static void ChangeDy(int diff) => dy += diff;
+        public static void ResetDxDy()
+        {
+            dx = 0;
+            dy = 0;
+        }
     }
 }

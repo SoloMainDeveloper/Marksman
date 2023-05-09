@@ -11,9 +11,6 @@ namespace Marksman
 {
     internal class SplashScreen
     {
-        public static Texture2D Background { get; set; }
-        public static SpriteFont Font { get; set; }
-
         public static Color color;
         public static int timeCounter;
         public static int diff;

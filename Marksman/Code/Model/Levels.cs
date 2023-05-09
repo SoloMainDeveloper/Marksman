@@ -18,16 +18,16 @@ namespace Marksman
             switch (Main.Level)
             {
                 case 1:
-                    ShootMode.CreateLevel(150, 4, Direction.Left, 4.5);
+                    ShootMode.CreateLevel(150, 4, Direction.Left, 4.5, 26);
                     break;
                 case 2:
-                    ShootMode.CreateLevel(300, 2, Direction.Right, 9);
+                    ShootMode.CreateLevel(300, 2, Direction.Right, 9, 26);
                     break;
                 case 3:
-                    ShootMode.CreateLevel(200, 8, Direction.Right, 6);
+                    ShootMode.CreateLevel(200, 8, Direction.Right, 6, 26);
                     break;
                 default:
-                    ShootMode.CreateLevel(150, 4, Direction.Left, 4.5);
+                    ShootMode.CreateLevel(150, 4, Direction.Left, 4.5, 26);
                     break;
                     //
             }
