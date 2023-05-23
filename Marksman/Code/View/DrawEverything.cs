@@ -54,7 +54,7 @@ namespace Marksman
 
         private static void LevelsDraw(GameTime gameTime, SpriteBatch spriteBatch)
         {
-            foreach (var button in Levels.levelButtons)
+            foreach (var button in Levels.LevelButtons)
                 button.Draw(gameTime, spriteBatch);
         }
 

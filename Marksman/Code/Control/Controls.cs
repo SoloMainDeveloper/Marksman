@@ -51,10 +51,7 @@ namespace Marksman
             }
         }
 
-        private static void MenuButtonClick(object sender, EventArgs e)
-        {
-            Main.state = GameState.Menu;
-        }
+        private static void MenuButtonClick(object sender, EventArgs e) => Main.state = GameState.Menu;
 
         private static void PlayButtonClick(object sender, EventArgs e)
         {

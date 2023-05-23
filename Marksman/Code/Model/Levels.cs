@@ -10,7 +10,7 @@ namespace Marksman
 {
     internal class Levels
     {
-        public static List<Component> levelButtons { get; set; }
+        public static List<Component> LevelButtons { get; set; }
 
         public static void CreateLevel()
         {

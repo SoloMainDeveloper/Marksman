@@ -61,7 +61,7 @@ namespace Marksman
 
         private static void LevelsUpdate(GameTime gameTime)
         {
-            foreach (var button in Levels.levelButtons)
+            foreach (var button in Levels.LevelButtons)
                 button.Update(gameTime);
         }
 
