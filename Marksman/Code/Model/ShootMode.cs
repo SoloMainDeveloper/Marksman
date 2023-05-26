@@ -25,6 +25,8 @@ namespace Marksman
         public static double LastShotDistance { get; private set; }
         public static List<Rectangle> ShotsPos { get; private set; }
         public static double TargetSize { get; private set; }
+        private static int bestMark;
+        private static bool didWin;
 
         public static void CreateLevel(int distanceToAim, int powerWindX, Direction directionWind, double randOffset, double targetSize)
         {
@@ -37,6 +39,8 @@ namespace Marksman
             ShotsDone = 0;
             LastShotOffsetY = 0;
             LastShotOffsetX = 0;
+            bestMark = 0;
+            didWin = false;
             dx = 0;
             dy = 0;
         }
@@ -57,8 +61,20 @@ namespace Marksman
             LastShotOffsetY = Math.Round(playerOffsetY + realOffsetY + randY, 2);
             LastShotDistance = GetDistanceToCentreTarget();
             var mark = GetMark();
+
             if (mark > 0)
+            {
                 ShotsPos.Add(new Rectangle(Main.WindowWidth / 2 - 10 + (int)(LastShotOffsetX * 10), targetCenterY - 10 - (int)(LastShotOffsetY * 10), 20, 20));
+                if (mark > bestMark)
+                {
+                    bestMark = mark;
+                    if (bestMark == 10 && !didWin)
+                    {
+                        didWin = true;
+                        Main.AddMoney();
+                    }
+                }
+            }
             ShotsDone++;
         }
     }

@@ -23,12 +23,20 @@ namespace Marksman
                     ShootMode.CreateLevel(300, 2, Direction.Right, 9, 26);
                     break;
                 case 3:
-                    ShootMode.CreateLevel(200, 8, Direction.Right, 6, 26);
+                    ShootMode.CreateLevel(200, 8, Direction.Left, 6, 26);
                     break;
-                //default:
-                //    ShootMode.CreateLevel(150, 4, Direction.Left, 4.5, 26);
-                //    break;
-                    //
+                case 4:
+                    ShootMode.CreateLevel(50, 4, Direction.Right, 1.5, 26);
+                    break;
+                case 5:
+                    ShootMode.CreateLevel(250, 2, Direction.Left, 7.5, 26);
+                    break;
+                case 6:
+                    ShootMode.CreateLevel(400, 8, Direction.Right, 12, 26);
+                    break;
+                default:
+                    Main.Level = 1;
+                    break;
             }
         }
     }

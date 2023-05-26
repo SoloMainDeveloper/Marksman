@@ -50,6 +50,7 @@ namespace Marksman
         private static void ShopDraw(GameTime gameTime, SpriteBatch spriteBatch)
         {
             spriteBatch.Draw(Textures.MenuBackground, Vector2.Zero, Color.White);
+            spriteBatch.DrawString(Textures.FontHead, $"Монеты: {Main.Money}", new(250, 45), Color.Black );
             foreach (var component in Shop.Options)
                 component.Draw(gameTime, spriteBatch);
         }
@@ -68,7 +69,7 @@ namespace Marksman
             var centerX = Main.CenterX;
             var posXtarget = centerX - Textures.ShootTarget.Width / 2;
             var posXaimer = centerX - Textures.ShootAimer.Width / 2;
-            spriteBatch.Draw(Textures.ShootBackground, Vector2.Zero, Color.White);
+            spriteBatch.Draw(Textures.CurrentBackground, Vector2.Zero, Color.White);
             spriteBatch.Draw(Textures.ShootTarget, new Rectangle(posXtarget, 10, Textures.ShootTarget.Width, Textures.ShootTarget.Height), Color.White);
             spriteBatch.Draw(Textures.ShootAimer, new Rectangle(posXaimer, 1080 - Textures.ShootAimer.Height, Textures.ShootAimer.Width, Textures.ShootAimer.Height), Color.White);
 
@@ -91,7 +92,7 @@ namespace Marksman
             }
 
             spriteBatch.Draw(Textures.ShootBulletInfo, new Rectangle(20, 120, notebook.Width, notebook.Height), Color.White);
-            spriteBatch.Draw(Textures.ShootBulletInfo, new Rectangle(20, 610, notebook.Width, notebook.Height), Color.White);
+            spriteBatch.Draw(Textures.ShootBulletInfo, new Rectangle(20, 580, notebook.Width, notebook.Height), Color.White);
             DrawBulletInfoHorizontal(gameTime, spriteBatch);
             DrawBulletInfoVertical(gameTime, spriteBatch);
 
@@ -119,13 +120,13 @@ namespace Marksman
 
         private static void DrawBulletInfoVertical(GameTime gameTime, SpriteBatch spriteBatch)
         {
-            spriteBatch.DrawString(Textures.NotebookFont, "Снос по Y", new(145, 700), Color.DarkBlue);
-            spriteBatch.DrawString(Textures.NotebookFont, "Дист. м  Снос см", new(145, 725), Color.DarkBlue);
+            spriteBatch.DrawString(Textures.NotebookFont, "Снос по Y", new(145, 670), Color.DarkBlue);
+            spriteBatch.DrawString(Textures.NotebookFont, "Дист. м  Снос см", new(145, 695), Color.DarkBlue);
             for (var i = 1; i < 9; i++)
             {
                 var dist = i * 50;
-                spriteBatch.DrawString(Textures.NotebookFont, $"{dist}", new(145, 725 + i * 25), Color.DarkBlue);
-                spriteBatch.DrawString(Textures.NotebookFont, $"{GunsInfo.offsetY150m308[dist]}", new(270, 725 + i * 25), Color.DarkBlue);
+                spriteBatch.DrawString(Textures.NotebookFont, $"{dist}", new(145, 695 + i * 25), Color.DarkBlue);
+                spriteBatch.DrawString(Textures.NotebookFont, $"{GunsInfo.offsetY150m308[dist]}", new(270, 695 + i * 25), Color.DarkBlue);
             }
         }
     }

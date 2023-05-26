@@ -14,7 +14,7 @@ namespace Marksman
             Textures.MainMusic, Textures.Metallica, Textures.SoaD, 
         };
         private static bool IsPlaying = false;
-        private static int currentSongIndex;
+        private static int currentSongIndex = -1;
 
         public static void PlayNextSong()
         {

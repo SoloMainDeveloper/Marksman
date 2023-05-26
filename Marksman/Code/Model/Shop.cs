@@ -10,6 +10,6 @@ namespace Marksman
 {
     internal class Shop
     {
-        public static List<Component> Options { get; set; }
+        public static List<Button> Options { get; set; }
     }
 }
