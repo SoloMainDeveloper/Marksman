@@ -41,11 +41,23 @@ namespace Marksman
             { Position = new(1120, 945) };
             var menuButton = new Button(Textures.MenuButton, font)
             { Position = new(10, 13) };
+            var musicButton = new Button(Textures.MusicButton, font)
+            {
+                Position = new(115, 13)
+            };
             ShootMode.Buttons = new List<Button>
             {
                 rightController, leftController, upController, downController,
-                resetController, menuButton, shootButton
+                resetController, menuButton, shootButton, musicButton
             };
+
+            var buttonLevel1 = new Button(Textures.PlayButton, font)
+            { Position = new(15, 200) };
+            Levels.LevelButtons = new List<Button>
+            {
+                buttonLevel1, musicButton, menuButton
+            };
+
             Controls.AddOperationToClick(playButton, "play");
             Controls.AddOperationToClick(quitButton, "quit");
             Controls.AddOperationToClick(shopButton, "shop");
@@ -56,6 +68,8 @@ namespace Marksman
             Controls.AddOperationToClick(upController, "aimUp");
             Controls.AddOperationToClick(downController, "aimDown");
             Controls.AddOperationToClick(shootButton, "shoot");
+            Controls.AddOperationToClick(musicButton, "music");
+            Controls.AddOperationToClick(buttonLevel1, "loadLevel1");
         }
     }
 }

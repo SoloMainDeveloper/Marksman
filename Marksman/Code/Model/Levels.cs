@@ -10,11 +10,10 @@ namespace Marksman
 {
     internal class Levels
     {
-        public static List<Component> LevelButtons { get; set; }
+        public static List<Button> LevelButtons { get; set; }
 
         public static void CreateLevel()
         {
-            Main.Level++;
             switch (Main.Level)
             {
                 case 1:
@@ -26,9 +25,9 @@ namespace Marksman
                 case 3:
                     ShootMode.CreateLevel(200, 8, Direction.Right, 6, 26);
                     break;
-                default:
-                    ShootMode.CreateLevel(150, 4, Direction.Left, 4.5, 26);
-                    break;
+                //default:
+                //    ShootMode.CreateLevel(150, 4, Direction.Left, 4.5, 26);
+                //    break;
                     //
             }
         }

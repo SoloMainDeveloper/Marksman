@@ -56,7 +56,9 @@ namespace Marksman
             LastShotOffsetX = Math.Round(playerOffsetX + realOffsetX + randX, 2);
             LastShotOffsetY = Math.Round(playerOffsetY + realOffsetY + randY, 2);
             LastShotDistance = GetDistanceToCentreTarget();
-            ShotsPos.Add(new Rectangle(Main.WindowWidth / 2 - 10 + (int)(LastShotOffsetX * 10), targetCenterY - 10 - (int)(LastShotOffsetY * 10), 20, 20));
+            var mark = GetMark();
+            if (mark > 0)
+                ShotsPos.Add(new Rectangle(Main.WindowWidth / 2 - 10 + (int)(LastShotOffsetX * 10), targetCenterY - 10 - (int)(LastShotOffsetY * 10), 20, 20));
             ShotsDone++;
         }
     }

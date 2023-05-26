@@ -152,6 +152,18 @@
 /processorParam:TextureFormat=Color
 /build:Assets/MenuControls/button_17.png;Assets/MenuControls/ButtonMenu
 
+#begin Assets/MenuControls/button_29.png
+/importer:TextureImporter
+/processor:TextureProcessor
+/processorParam:ColorKeyColor=255,0,255,255
+/processorParam:ColorKeyEnabled=True
+/processorParam:GenerateMipmaps=False
+/processorParam:PremultiplyAlpha=True
+/processorParam:ResizeToPowerOfTwo=False
+/processorParam:MakeSquare=False
+/processorParam:TextureFormat=Color
+/build:Assets/MenuControls/button_29.png;Assets/MenuControls/MusicButton
+
 #begin Assets/MenuControls/ready_button_01.png
 /importer:TextureImporter
 /processor:TextureProcessor
@@ -272,6 +284,30 @@
 /processorParam:TextureFormat=Color
 /build:Assets/Shots/shot6.png;Assets/Shots/Shot6
 
+#begin Assets/Sounds/awp_clipout.mp3
+/importer:Mp3Importer
+/processor:SongProcessor
+/processorParam:Quality=Best
+/build:Assets/Sounds/awp_clipout.mp3;Assets/Sounds/Switch
+
+#begin Assets/Sounds/Lonely Day.mp3
+/importer:Mp3Importer
+/processor:SongProcessor
+/processorParam:Quality=Best
+/build:Assets/Sounds/Lonely Day.mp3;Assets/Sounds/SoaD
+
+#begin Assets/Sounds/Patience.mp3
+/importer:Mp3Importer
+/processor:SongProcessor
+/processorParam:Quality=Best
+/build:Assets/Sounds/Patience.mp3;Assets/Sounds/GNR
+
+#begin Assets/Sounds/The Unforgiven.mp3
+/importer:Mp3Importer
+/processor:SongProcessor
+/processorParam:Quality=Best
+/build:Assets/Sounds/The Unforgiven.mp3;Assets/Sounds/Metallica
+
 #begin Assets/target.png
 /importer:TextureImporter
 /processor:TextureProcessor
@@ -283,6 +319,18 @@
 /processorParam:MakeSquare=False
 /processorParam:TextureFormat=Color
 /build:Assets/target.png;Assets/Target
+
+#begin Assets/Иконка Урока.png
+/importer:TextureImporter
+/processor:TextureProcessor
+/processorParam:ColorKeyColor=255,0,255,255
+/processorParam:ColorKeyEnabled=True
+/processorParam:GenerateMipmaps=False
+/processorParam:PremultiplyAlpha=True
+/processorParam:ResizeToPowerOfTwo=False
+/processorParam:MakeSquare=False
+/processorParam:TextureFormat=Color
+/build:Assets/Иконка Урока.png;Assets/Level
 
 #begin Background.jpg
 /importer:TextureImporter

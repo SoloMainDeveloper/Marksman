@@ -13,7 +13,7 @@ namespace Marksman
     {
         public static void Update(GameTime gameTime, Header game)
         {
-            switch (Main.state)
+            switch (Main.State)
             {
                 case GameState.SplashScreen:
                     SplashScreenUpdate();
@@ -21,11 +21,11 @@ namespace Marksman
                 case GameState.Menu:
                     MenuUpdate(gameTime);
                     break;
-                case GameState.Game:
-                    ShootModeUpdate(gameTime);
-                    break;
                 case GameState.Levels:
                     LevelsUpdate(gameTime);
+                    break;
+                case GameState.Game:
+                    ShootModeUpdate(gameTime);
                     break;
                 case GameState.Shop:
                     ShopUpdate(gameTime);
@@ -38,7 +38,7 @@ namespace Marksman
         private static void SplashScreenUpdate()
         {
             if (Keyboard.GetState().IsKeyDown(Keys.Enter))
-                Main.state = GameState.Menu;
+                Main.State = GameState.Menu;
             SplashScreen.timeCounter = (SplashScreen.timeCounter + SplashScreen.diff) % 256;
             if (SplashScreen.timeCounter == 255)
                 SplashScreen.diff = -5;
@@ -67,7 +67,8 @@ namespace Marksman
 
         private static void ShopUpdate(GameTime gameTime)
         {
-
+            foreach (var button in Shop.Options)
+                button.Update(gameTime);
         }
     }
 }
