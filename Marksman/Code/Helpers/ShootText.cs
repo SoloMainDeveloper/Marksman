@@ -22,7 +22,7 @@ namespace Marksman
         {
             return Math.Round(Math.Sqrt(LastShotOffsetX * LastShotOffsetX + LastShotOffsetY * LastShotOffsetY), 2);
         }
-        public static double GetMark() => LastShotDistance > TargetSize ? 0 : 10 - (int)LastShotDistance / 3;
+        public static int GetMark() => LastShotDistance > TargetSize ? 0 : 10 - (int)LastShotDistance / 3;
         public static string GetOffsetTextX() => LastShotOffsetX < 0 ? "влево" : "вправо";
         public static string GetOffsetTextY() => LastShotOffsetY < 0 ? "вниз" : "вверх";
         public static Vector2 GetOffsetTextPosX() => dx > 0 ? new(Main.CenterX - 32, 600) : new(Main.CenterX - 22, 600);

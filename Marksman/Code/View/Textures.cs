@@ -5,13 +5,21 @@ using System.Reflection.Metadata;
 using System.Text;
 using System.Threading.Tasks;
 using Microsoft.Xna.Framework;
+using Microsoft.Xna.Framework.Audio;
 using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Input;
+using Microsoft.Xna.Framework.Media;
 
 namespace Marksman
 {
     internal class Textures
     {
+        public static Dictionary<string, Texture2D> Backgrounds = new()
+        {
+            { "grass", ShootBackground },
+            { "forest", Forest },
+            { "sand", Sand }
+        };
         public static SpriteFont FontHead = Main.Content.Load<SpriteFont>("SplashFont");
 
         //splashScreen
@@ -22,10 +30,18 @@ namespace Marksman
         public static Texture2D PlayButton = Main.Content.Load<Texture2D>("Assets/MenuControls/PlayButton");
         public static Texture2D QuitButton = Main.Content.Load<Texture2D>("Assets/MenuControls/QuitButton");
         public static Texture2D ShopButton = Main.Content.Load<Texture2D>("Assets/MenuControls/ShopButton");
+        public static Texture2D MusicButton = Main.Content.Load<Texture2D>("Assets/MenuControls/MusicButton");
 
         //shop
+        public static Texture2D Sand = Main.Content.Load<Texture2D>("Sand");
+        public static Texture2D Forest = Main.Content.Load<Texture2D>("Forest");
+        public static Texture2D ForestButton = Main.Content.Load<Texture2D>("Assets/Shop/ForestButton");
+        public static Texture2D SandButton = Main.Content.Load<Texture2D>("Assets/Shop/SandButton");
+        public static Texture2D ShootBackgroundButton = Main.Content.Load<Texture2D>("Assets/Shop/GrassButton");
 
         //levels
+        public static Texture2D Level = Main.Content.Load<Texture2D>("Assets/Level");
+        public static Texture2D Cup = Main.Content.Load<Texture2D>("Assets/Cup");
 
         //shootMode
         public static SpriteFont NotebookFont = Main.Content.Load<SpriteFont>("Assets/Fonts/NotebookFont");
@@ -45,6 +61,12 @@ namespace Marksman
         public static Texture2D ShootButton = Main.Content.Load<Texture2D>("Assets/GunControls/ButtonShoot");
         public static Texture2D MenuButton = Main.Content.Load<Texture2D>("Assets/MenuControls/ButtonMenu");
 
+        //sounds
+        public static Song Switch = Main.Content.Load<Song>("Assets/Sounds/Switch");
+        public static Song MainMusic = Main.Content.Load<Song>("Assets/Sounds/GNR");
+        public static Song Metallica = Main.Content.Load<Song>("Assets/Sounds/Metallica");
+        public static Song SoaD = Main.Content.Load<Song>("Assets/Sounds/SoaD");
 
+        public static Texture2D CurrentBackground { get; set; } = ShootBackground;
     }
 }
