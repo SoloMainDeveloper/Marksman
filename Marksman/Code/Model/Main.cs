@@ -11,8 +11,6 @@ namespace Marksman
     {
         public static Microsoft.Xna.Framework.Content.ContentManager Content { get; set; }
         public static int Level;
-        public static bool HasSand { get; set; } = false;
-        public static bool HasForest { get; set; } = false;
         public static int Money { get; private set; }
         public static GameState State = GameState.SplashScreen;
         public readonly static int WindowWidth = 1920;

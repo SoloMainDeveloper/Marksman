@@ -102,24 +102,24 @@ namespace Marksman
         private static void GrassButtonClick(object sender, EventArgs e) => Textures.CurrentBackground = Textures.ShootBackground;
         private static void ForestButtonClick(object sender, EventArgs e)
         {
-            if (Main.HasForest)
+            if (Shop.HasForest)
                 Textures.CurrentBackground = Textures.Forest;
             else if (Main.Money > 0)
             {
                 Main.SpendMoney();
-                Main.HasForest = true;
+                Shop.HasForest = true;
                 Textures.CurrentBackground = Textures.Forest;
             }
         }
 
         private static void SandButtonClick(object sender, EventArgs e)
         {
-            if (Main.HasSand)
+            if (Shop.HasSand)
                 Textures.CurrentBackground = Textures.Sand;
             else if (Main.Money > 0)
             {
                 Main.SpendMoney();
-                Main.HasSand = true;
+                Shop.HasSand = true;
                 Textures.CurrentBackground = Textures.Sand;
             }
         }
